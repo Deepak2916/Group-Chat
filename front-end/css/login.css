@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
+
+input {
+  caret-color: red;
+}
+
+body {
+  /* margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #ecf0f3;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  place-items: center;
+  overflow: hidden;
+  font-family: poppins; */
+  align-items: center;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.container {
+  position: relative;
+  width: 350px;
+  height: 500px;
+  border-radius: 20px;
+  padding: 40px;
+  box-sizing: border-box;
+  background: #1b649c;
+  /* box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white; */
+}
+
+/* .brand-logo {
+  height: 100px;
+  width: 100px;
+  /* background: url("https://img.icons8.com/color/100/000000/twitter--v2.png"); */
+  /* margin: auto; */
+  /* border-radius: 50%; */
+  /* box-sizing: border-box; */
+  /* box-shadow: 7px 7px 10px #cbced1, -7px -7px 10px white; */
+/* } */ 
+
+.brand-title {
+  margin-top: 10px;
+  font-weight: 900;
+  font-size: 1.8rem;
+  color: #6f9ab5;
+  letter-spacing: 1px;
+}
+
+.inputs {
+  text-align: left;
+  margin-top: 30px;
+}
+
+label, input, button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+}
+
+label {
+  margin-bottom: 4px;
+}
+
+label:nth-of-type(2) {
+  margin-top: 12px;
+}
+
+input::placeholder {
+  color: gray;
+}
+
+input {
+  background: #f0f3f6;
+  padding: 10px;
+  padding-left: 20px;
+  height: 50px;
+  font-size: 14px;
+  border-radius: 50px;
+  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+}
+
+button {
+  color: white;
+  margin-top: 20px;
+  background: #1DA1F2;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 900;
+  /* box-shadow: 6px 6px 6px #487aac, -6px -6px 6px white; */
+  transition: 0.5s;
+}
+
+button:hover {
+  box-shadow: none;
+  background-color: #1d2225;
+}
+ul{
+    width: 100px;
+     color: white;
+     font-weight: 800;
+     cursor: pointer;
+     height: 40px;
+  transition: 0.5s; 
+  }
+  ul li {
+    text-align: center;
+    list-style: none;
+    background-color: rgb(110, 192, 243);
+    border-radius: 10px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+   
+    height: 40px;
+    margin-top: 38px;
+     /* outline: 0; */
+    text-align: center;
+    width: 100%;
+  }
+ul li a{
+    text-decoration: none;
+    text-align: center;
+    color: rgb(28, 28, 47);
+    cursor: pointer;
+    font-size: 25px;
+    
+  }
+  ul :hover{
+    background-color: #15172b;
+    color: rgb(86, 114, 138);
+  }
+
+  .resetPassworddiv{
+    padding-top: 0.5rem;
+  }
+
+  .resetPassword{
+    text-decoration: none;
+    color: rgb(232, 176, 176);
+    margin: 1rem;
+    
+  }
+  .resetPassword:hover{
+    color: rgb(228, 238, 238);
+  }
+
+  
+

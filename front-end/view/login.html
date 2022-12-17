@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+    <section id="login-page">
+            <!-- <Form action="" id="login-form" method="POST"> -->
+                <div class="container">
+                    <div class="brand-logo"></div>
+                    <div class="brand-title">Expense app</div>
+                    <div class="inputs">
+                      <label>EMAIL</label>
+                      <input type="email" id="email"  />
+                      <label>PASSWORD</label>
+                      <input type="password" id="password"  />
+                      <button type="submit" id="btn">LOGIN</button>
+                      <div class="resetPassworddiv">
+                      <a href="./forgotPassword.html" class="resetPassword">forgot password ?</a>
+                    </div>
+                    </div>
+            <!-- </Form> -->
+            <ul>
+                <li><a href="./signup.html">Signup</a></li>
+            </ul>  
+        <div id="status"></div> 
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
+    <script src="../script/login.js"></script>
+</body>
+</html>

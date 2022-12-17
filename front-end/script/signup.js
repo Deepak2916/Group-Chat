@@ -17,25 +17,31 @@ function SignUp(e){
     }
    
     
-    // async function PostUser(){
-    //    let user=await axios.post('http://localhost:4000/user/signup',obj)
-    //    console.log(user.data.success)
-    //    let status=document.getElementById('status')
-    //    if(user.data.success){
-    //     status.innerHTML='SUCCESS'
-    //     window.location="login.html"
-    //    }
-    //    else{
-    //     if(user.data.error=="number"){
-    //         status.innerHTML=`user with number <b> '${number}' </b> has already existed`
-    //     }
-    //     else{
-    //         status.innerHTML=`user with email id <b>'${email}'</b> has already existed`
-    //     }
-    //    }
+    async function PostUser(){
+        try{
+       let user=await axios.post('http://localhost:4000/user/signup',obj)
+       console.log(user.data.success)
+       let status=document.getElementById('status')
+       if(user.data.success){
+        status.style='color:green'
+        status.innerHTML='SUCCESS'
+        window.location="login.html"
+       }
+       else{
+        if(user.data.error=="number"){
+            status.innerHTML=`user with number <b> '${number}' </b> has already existed`
+        }
+        else{
+            status.innerHTML=`user with email id <b>'${email}'</b> has already existed`
+        }
+       }
+    }
+    catch(err){
+        console.log('err:-',err)
+    }
     
    
-    // }
-    // PostUser()
+    }
+    PostUser()
 
 }
