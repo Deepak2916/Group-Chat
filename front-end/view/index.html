@@ -5,8 +5,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group Chat</title>
+    <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
-    
+    <header>
+        <h1>Group Chat</h1>
+        <input type="hidden" id="" class="savingUserId">
+        <input type="hidden" id="" class="savingGroupId">
+    </header>
+    <div class="groups">
+        <h2>Groups</h2>
+        <div class="groupNames">
+            <div id="groupNames" class="sub-container">
+       
+            </div>
+        </div>
+        <div class="userInput">
+            <h2 >create group</h2>
+            <input type="text" placeholder="group-name" id="group-name" required>
+            <input type="button" value="create" id="AddGroupbtn">
+        </div>
+    </div>
+    <div class="users">
+        <h2>users</h2>
+        <div class="userNames">
+            <div class="sub-container" id="userNames">
+            
+            </div>
+        </div>
+        <div class="userInput" id="userInput">
+            <h2>Add user</h2>
+            <!-- <input type="text" placeholder="user-name" required> -->
+            <input type="email" placeholder="@email" id='email' required>
+            <input type="button" value="add" id="AddUserbtn">
+            <p id="error" style="color: red;"></p>
+        </div>
+    </div>
+<h2 class="messageTitle">Chat Messages</h2>
+<div id="messageContainer">
+     
+
+</div>
+
+<div class="message">
+    <input type="text" id="text" class="messageBox" required>
+    <button id="sendbtn">send</button>
+
+</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
+    <script src="../script/app.js"></script>
+   
 </body>
 </html>
+
+    
