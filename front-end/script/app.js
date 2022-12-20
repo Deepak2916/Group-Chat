@@ -27,7 +27,7 @@ function DisplayNames(name,type,id,admin){
 //create group
 
 createGroup.onclick=async ()=>{
-    console.log('clicked')
+    // console.log('clicked')
     let groupName=document.getElementById('group-name').value
     let token=localStorage.getItem('token')
     let group= await axios.post(`http://localhost:4000/group/create`,{name:groupName},{headers:{"Authorization":token}})
@@ -109,6 +109,7 @@ async function GroupSide(e){
             
         }
         else{
+            messageTitle.classList.remove('message-title')
             // console.log(document.getElementById('userInput'))
             document.getElementById('userInput').style='display:none'
             let btns=document.querySelectorAll('.userDeleteBtn')
@@ -191,7 +192,7 @@ sendbtn.onclick= async ()=>{
         id:groupId
     },{headers:{"Authorization":token}})
    
-    // AddMessage(message,'you')
+    document.getElementById('text').value=''
 }
 
 async function DisplayAllMessages(lastId){

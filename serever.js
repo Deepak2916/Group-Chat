@@ -14,6 +14,8 @@ const GroupUsers=require('./models/groupUsers')
 const app=express()
 app.use(bodyParser.json())
 app.use(cors())
+app.use(express.static(path.join(__dirname,'front-end')))
+// app.use(express.static(path.join(__dirname,'script')))
 
 const UserRouter=require('./routers/user')
 const MessageRouter=require('./routers/messages')
@@ -26,7 +28,10 @@ app.use('/group',GroupsRouter)
 app.use('/admin',AdminRouter)
 
 
-
+app.use((req,res)=>{
+    console.log(req.url)
+    res.sendFile(path.join(__dirname,'front-end',`view/${req.url}`))
+})
 
 
 User.hasMany(Message)

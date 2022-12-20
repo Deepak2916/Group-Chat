@@ -146,6 +146,9 @@ body {
     border-color:#999;
     border: none;
   }
+  hr{
+    /* position: fixed; */
+  }
 
   .message button:hover{
     background-color: #999;
