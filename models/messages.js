@@ -15,6 +15,9 @@ const message=sequelize.define('messages',{
     userName:{
         type:Sequelize.STRING,
         allowNull:false
+    },
+    isFile:{
+        type:Sequelize.BOOLEAN
     }
 });
 

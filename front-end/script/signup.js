@@ -25,7 +25,7 @@ function SignUp(e){
        if(user.data.success){
         status.style='color:green'
         status.innerHTML='SUCCESS'
-        window.URL="login.html"
+        window.location="login.html"
        }
        else{
         if(user.data.error=="number"){

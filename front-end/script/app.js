@@ -4,6 +4,8 @@ let groupNames=document.getElementById('groupNames')
 let userNames=document.getElementById('userNames')
 let createGroup=document.getElementById('AddGroupbtn')
 let AddUser=document.getElementById('AddUserbtn')
+let form=document.querySelector('form')
+form.addEventListener('submit',addImage)
 
 groupNames.addEventListener('click',GroupSide)
 userNames.addEventListener('click',UsersSide)
@@ -33,6 +35,7 @@ createGroup.onclick=async ()=>{
     let group= await axios.post(`http://localhost:4000/group/create`,{name:groupName},{headers:{"Authorization":token}})
     console.log(group.data.group)
     DisplayNames(groupName,'group',group.data.group.id,false)
+    document.getElementById('group-name').value=''
 }
 
 // get groups
@@ -67,7 +70,7 @@ async function GroupSide(e){
         // document.querySelector('.userInput').id=groupId
         let groupTitle=e.target.textContent.split(' ')[0]
         let messageTitle=document.querySelector('.messageTitle')
-        messageTitle.textContent=e.target.textContent.split(' ')[0]
+        messageTitle.textContent=groupTitle
         let Active=document.querySelector('.active')
         // console.log(Active)
         if(Active==null){
@@ -82,17 +85,21 @@ async function GroupSide(e){
         userNames.innerHTML=''
         let UserId=document.querySelector('.savingUserId').id
         let admin=users.data.admin
+        document.getElementById('createdby').textContent=admin[1]
 
         //admis
         let adminsUsers=await axios.get(`http://localhost:4000/admin/get/${groupId}`)
         let admins=[]
         adminsUsers.data.forEach(admin=>{
-            admins.push(admin.userId)
+            admins.push(parseInt(admin.userId))
         })
-        console.log('admins:-',admins)
+      
+        let userarr=[]
         users.data.users.forEach(user=>{
+            userarr.push(user.id)
+            // console.log(admins.includes(user.id))
             if(UserId==user.id)
-                if(UserId==admin[0] || admins.includes(UserId)){
+                if(UserId==admin[0] || admins.includes(parseInt(UserId))){
 
                      DisplayNames('you','user',user.id,true)
                     }
@@ -102,7 +109,8 @@ async function GroupSide(e){
                 else DisplayNames(user.name,'user',user.id,false)
             }
         })
-        if(UserId==admin[0] || admins.includes(UserId)){
+        console.log(userarr);
+        if(UserId==admin[0] || admins.includes(parseInt(UserId))){
             messageTitle.classList.add('message-title')
             // messageTitle.style='color:white'
             document.getElementById('userInput').style='display:block'
@@ -127,10 +135,6 @@ async function GroupSide(e){
    messageContainer.innerHTML=''
     DisplayAllMessages(0)
 
-
-    // setInterval(()=>{
-    //      console.log('clicked')
-    //     },3000)
 }
 
 
@@ -145,12 +149,13 @@ Addbtn.onclick=async ()=>{
     try{
     let email=document.getElementById('email').value
     let groupId=document.querySelector('.active').children[0].id
-    console.log(groupId)
+    // console.log(groupId)
     
     let user=await axios.post(`http://localhost:4000/group/addUser`,{id:groupId,email:email})
     userName=user.data.user[0].name
     userId=user.data.user[0].id
     DisplayNames(userName,'user',userId)
+    document.getElementById('email').value=''
     }
     catch{
         document.getElementById('error').textContent=`User not found`
@@ -162,37 +167,64 @@ Addbtn.onclick=async ()=>{
 
 // add message
 
-function AddMessage(text,name){
+function AddMessage(text,name,file){
    
-       
+   if(file){ 
        if(name=='you'){
         messageContainer.innerHTML+=`<div class="container darker">
         <span class="time-left" style='color: rgb(59, 61, 61)'>∼ ${name}</span>
-        <p><strong>${text}</strong></p>
+        <p><strong> <a href=${text}>downloadfile</a></strong></p>
        </div>`
        }
        else{
         messageContainer.innerHTML+=`<div class="container">
         <span class="time-right" style='color: rgb(59, 61, 61)'>∼ ${name}</span>
-        <p><strong>${text}</strong></p>
+        <p><strong> <a href=${text}>downloadfile</a></strong></p>
        </div>`
        }
+    }
+    else{
+        if(name=='you'){
+            messageContainer.innerHTML+=`<div class="container darker">
+            <span class="time-left" style='color: rgb(59, 61, 61)'>∼ ${name}</span>
+            <p><strong> ${text}</strong></p>
+           </div>`
+           }
+           else{
+            messageContainer.innerHTML+=`<div class="container">
+            <span class="time-right" style='color: rgb(59, 61, 61)'>∼ ${name}</span>
+            <p><strong>${text}</strong></p>
+           </div>`
+           }
+    }
 }
 
 // send button
 // console.log(sendbtn)
-sendbtn.onclick= async ()=>{
 
-    let message=document.getElementById('text').value
+
+async function addImage(e){
+    e.preventDefault()
+   
     let token=localStorage.getItem('token')
     let groupId=document.querySelector('.active').children[0].id
+   if(file!=''){
 
-    await axios.post(`http://localhost:4000/message/Add/$`,{
-        message:message,
-        id:groupId
-    },{headers:{"Authorization":token}})
-   
+    const formData=new FormData(form);
+  
+    // console.log(formData);
+    formData.append('id',groupId)
+    // console.log(document.getElementById('file').files[0])
+
+    await axios.post(`http://localhost:4000/message/Add`,formData
+    ,{
+        headers:{"Authorization":token,
+                 "Content-Type":'multipart/form-data'
+                }
+})
+    document.getElementById('file').value=null
     document.getElementById('text').value=''
+}
 }
 
 async function DisplayAllMessages(lastId){
@@ -201,12 +233,16 @@ async function DisplayAllMessages(lastId){
     if(group!==null){
     let groupId=group.children[0].id
     let messages=await axios.get(`http://localhost:4000/message/Get?groupId=${groupId}&lastId=${lastId}`)
+    // console.log(messages)
     let messageId;
     let UserId=document.querySelector('.savingUserId').id
+   
     messages.data.forEach(userMessage=>{
+        let file=userMessage.isFile
+        // console.log('is file:-',file)
         messageId=userMessage.id
-        if(userMessage.userId==UserId) AddMessage(userMessage.message,'you')
-        else AddMessage(userMessage.message, userMessage.userName)
+        if(userMessage.userId==UserId) AddMessage(userMessage.message,'you',file)
+        else AddMessage(userMessage.message, userMessage.userName,file)
     })
    if(messageId!=undefined){
     localStorage.setItem('lastId',messageId)
@@ -215,23 +251,14 @@ async function DisplayAllMessages(lastId){
 
 }
 
-// setinterval
-// function SentInterval(){
+
 setInterval( async ()=>{
-//         let group=document.querySelector('.active')
+
         let lastId=localStorage.getItem('lastId')
-        // console.log(lastId)
-        DisplayAllMessages(lastId)
-//         // console.log(lastId)
-//         let groupId=group.children[0].id
-//         let messages=await axios.get(`http://localhost:4000/message/Get?groupId=${groupId} & lastId=${lastId}`)
-//         console.log( messages.data)
-
-  
+     
+        DisplayAllMessages(lastId)  
 },1000) 
-// }
 
-// SentInterval()
 
 // users side functions
 
@@ -249,3 +276,4 @@ async function UsersSide(e){
     }
 
 }
+

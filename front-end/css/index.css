@@ -168,7 +168,20 @@ body {
     color: rgb(22, 207, 52);
     border: none;
   }
+  .Addadmin{
+    color: rgb(22, 207, 52);
+  }
   .message-title{
     color: rgb(96, 91, 91);
     background-color: rgb(32, 234, 75);
+  }
+  .createdby{
+    position: fixed;
+    right: 28rem;
+  }
+  .file{
+    position: fixed;
+    padding: 1rem;
+    left: 20rem;
+    font-size: large;
   }
